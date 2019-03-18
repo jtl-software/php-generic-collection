@@ -1,5 +1,7 @@
 # Generic Collection
 
+[![Build Status](https://travis-ci.com/JTLSoftwareGmbH/php-generic-collection.svg?branch=master)](https://travis-ci.com/JTLSoftwareGmbH/php-generic-collection)  
+
 An implementation of generic collections in PHP using iterators.
 Brings type safety to your arrays without hacks or ugly code.
 
