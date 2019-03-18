@@ -55,17 +55,12 @@ If you desire more advanced type checking you can implement your own algorithm e
 Your custom collection class simply needs to override the `checkType` method and return
 *true* if the type matches or *false* if it doesn't.  
 
-Here's an example of a collection that only accepts even numbers (the `type` can be
-set to an empty string because the type checking function doesn't reference it). 
+Here's an example of a collection that only accepts even numbers. 
 
 ```php
 use JTL\Generic\GenericCollection;
 
 class EvenCollection extends GenericCollection {
-    public function __construct() {
-        parent::__construct('');
-    }
-
     public function checkType($item): bool {
         return $item % 2 === 0;
     }

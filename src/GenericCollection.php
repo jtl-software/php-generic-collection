@@ -14,7 +14,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     protected $itemList = [];
     protected $type;
 
-    public function __construct(string $type)
+    public function __construct(string $type = null)
     {
         $this->type = $type;
     }
@@ -37,7 +37,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      */
     public function checkType($item): bool
     {
-        return ($this->type === 'string' && \is_string($item)) || $item instanceof $this->type;
+        return $this->type === null || ($this->type === 'string' && \is_string($item)) || $item instanceof $this->type;
     }
 
     /**

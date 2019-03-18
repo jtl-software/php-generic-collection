@@ -41,3 +41,11 @@ class TestCollection2 extends GenericCollection
         parent::__construct(TestItem2::class);
     }
 }
+
+class TestCollection3 extends GenericCollection
+{
+    public function checkType($item): bool
+    {
+        return true;
+    }
+}

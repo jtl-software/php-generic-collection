@@ -468,4 +468,26 @@ class GenericCollectionTest extends TestCase
             return $item->a > 9000;
         }));
     }
+
+    public function testCanOmitTypeInConstructor()
+    {
+        $testItem1 = new TestItem(1000);
+        $testCollection = new TestCollection3();
+        $testCollection[] = $testItem1;
+        $this->assertCount(1, $testCollection);
+    }
+
+    public function testEmptyTypeAllowsAllTypes()
+    {
+        $testItem1 = new TestItem(1000);
+        $testCollection = new GenericCollection();
+        $testCollection[] = $testItem1;
+        $this->assertCount(1, $testCollection);
+
+        $testCollection[] = random_int(1, 100000);
+        $this->assertCount(2, $testCollection);
+
+        $testCollection[] = uniqid('test', true);
+        $this->assertCount(3, $testCollection);
+    }
 }
