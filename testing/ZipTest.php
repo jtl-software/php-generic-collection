@@ -4,7 +4,8 @@
  * Date: 15/03/19
  */
 
-use JTL\Generic\Zip;
+namespace JTL\Generic;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,7 +15,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ZipTest extends TestCase
 {
-
     public function testCanCreateTuple()
     {
         $first = random_int(1, 100000);

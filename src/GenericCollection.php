@@ -32,7 +32,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     }
 
     /**
-     * @param $item
+     * @param mixed $item
      * @return bool
      */
     public function checkType($item): bool
@@ -131,7 +131,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * Add a raw array of items to the collection
      *
-     * @param $itemList
+     * @param array $itemList
      * @return GenericCollection
      */
     public function addItemList($itemList): GenericCollection
@@ -157,7 +157,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * Executes 'func' for every item in the collection with the item as parameter
      *
-     * @param $func
+     * @param Closure $func
      * @return GenericCollection
      */
     public function each(Closure $func): GenericCollection
@@ -173,7 +173,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * Applies 'func' to every item via array_map
      * Important: Make sure to return the input parameter to avoid re-typing the collection
      *
-     * @param $func
+     * @param Closure $func
      * @return GenericCollection
      */
     public function map(Closure $func): GenericCollection
@@ -185,7 +185,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * Applies 'func' as a filter to every item via array_filter
      *
-     * @param $func
+     * @param Closure $func
      * @return GenericCollection
      */
     public function filter(Closure $func): GenericCollection
@@ -278,7 +278,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * Creates two new collections based on whether or the predicate returns true or false.
      * 'func' is called with each item and has to return a boolean value.
      *
-     * @param $func
+     * @param Closure $func
      * @return array An array of two collections with index 0 being the 'true' collection and index 1 being the
      * 'false' collection
      */
@@ -303,7 +303,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * Parameter 1 of 'func' is the carry i.e. the return value of the previous iteration
      * Parameter 2 of 'func' is the current item
      *
-     * @param $func
+     * @param Closure $func
      * @return mixed
      */
     public function reduce(Closure $func)
@@ -317,7 +317,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * given that no matter what else happens, the result will also be false.
      * An empty collection returns true.
      *
-     * @param $func
+     * @param Closure $func
      * @return bool
      */
     public function all(Closure $func): bool
@@ -337,7 +337,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * given that no matter what else happens, the result will also be true.
      * An empty collection returns false.
      *
-     * @param $func
+     * @param Closure $func
      * @return bool
      */
     public function any(Closure $func): bool
@@ -355,7 +355,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * Searches for an element of an collection that satisfies a predicate.
      * find() is short-circuiting; in other words, it will stop processing as soon as the closure returns true.
      *
-     * @param $func
+     * @param Closure $func
      * @return mixed|null
      */
     public function find(Closure $func)

@@ -4,7 +4,9 @@
  * Date: 15/03/19
  */
 
-use JTL\Generic\Zip;
+namespace JTL\Generic;
+
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
