@@ -9,3 +9,5 @@ install:
 script:
     - composer phpcs-dry
     - composer phpstan
+
+if: branch = master
