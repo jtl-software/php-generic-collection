@@ -26,7 +26,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * <b>Traversable</b>
      * @since 5.0.0
      */
-    public function getIterator(): \Traversable
+    public function getIterator()
     {
         return new \ArrayIterator($this->itemList);
     }
@@ -35,7 +35,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param mixed $item
      * @return bool
      */
-    public function checkType($item): bool
+    public function checkType($item)
     {
         return $this->type === null || ($this->type === 'string' && \is_string($item)) || $item instanceof $this->type;
     }
@@ -52,7 +52,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * The return value will be casted to boolean if non-boolean was returned.
      * @since 5.0.0
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->itemList[$offset]);
     }
@@ -83,7 +83,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @return void
      * @since 5.0.0
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (!$this->checkType($value)) {
             throw new \InvalidArgumentException('Invalid type');
@@ -101,7 +101,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @return void
      * @since 5.0.0
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->itemList[$offset]);
     }
@@ -109,7 +109,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType()
     {
         return $this->type;
     }
@@ -123,7 +123,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * The return value is cast to an integer.
      * @since 5.1.0
      */
-    public function count(): int
+    public function count()
     {
         return \count($this->itemList);
     }
@@ -134,7 +134,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param array $itemList
      * @return GenericCollection
      */
-    public function addItemList($itemList): GenericCollection
+    public function addItemList($itemList)
     {
         foreach ($itemList as $item) {
             if (!$this->checkType($item)) {
@@ -147,7 +147,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
         return $this;
     }
 
-    public function getClass(): string
+    public function getClass()
     {
         return static::class;
     }
@@ -160,7 +160,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param Closure $func
      * @return GenericCollection
      */
-    public function each(Closure $func): GenericCollection
+    public function each(Closure $func)
     {
         foreach ($this->itemList as $item) {
             $func($item);
@@ -176,7 +176,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param Closure $func
      * @return GenericCollection
      */
-    public function map(Closure $func): GenericCollection
+    public function map(Closure $func)
     {
         $this->itemList = array_map($func, $this->itemList);
         return $this;
@@ -188,7 +188,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param Closure $func
      * @return GenericCollection
      */
-    public function filter(Closure $func): GenericCollection
+    public function filter(Closure $func)
     {
         $this->itemList = array_filter($this->itemList, $func);
         return $this;
@@ -199,7 +199,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      *
      * @return GenericCollection
      */
-    public function clone(): GenericCollection
+    public function clone()
     {
         $items = $this->itemList;
         $collection = new static($this->getType());
@@ -217,7 +217,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param GenericCollection $other
      * @return GenericCollection
      */
-    public function chain(GenericCollection $other): GenericCollection
+    public function chain(GenericCollection $other)
     {
         if ($other->getType() !== $this->getType()) {
             throw new \InvalidArgumentException('Invalid type');
@@ -245,7 +245,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param GenericCollection $other
      * @return ZippedCollection
      */
-    public function zip(GenericCollection $other): ZippedCollection
+    public function zip(GenericCollection $other)
     {
         $newCollection = new ZippedCollection();
         $newCollection->setLeftOriginalClassName(static::class);
@@ -282,7 +282,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @return array An array of two collections with index 0 being the 'true' collection and index 1 being the
      * 'false' collection
      */
-    public function partition(Closure $func): array
+    public function partition(Closure $func)
     {
         $trueCollection = new static($this->getType());
         $falseCollection = new static($this->getType());
@@ -320,7 +320,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param Closure $func
      * @return bool
      */
-    public function all(Closure $func): bool
+    public function all(Closure $func)
     {
         foreach ($this->itemList as $item) {
             if (!$func($item)) {
@@ -340,7 +340,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param Closure $func
      * @return bool
      */
-    public function any(Closure $func): bool
+    public function any(Closure $func)
     {
         foreach ($this->itemList as $item) {
             if ($func($item)) {
