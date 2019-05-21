@@ -14,6 +14,16 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     protected $itemList = [];
     protected $type;
 
+    /**
+     * Create a new GenericCollection from a variable-length argument list
+     * @param mixed ...$items
+     * @return GenericCollection
+     */
+    public static function from(...$items): GenericCollection
+    {
+        return (new static())->addItemList($items);
+    }
+
     public function __construct(string $type = null)
     {
         $this->type = $type;

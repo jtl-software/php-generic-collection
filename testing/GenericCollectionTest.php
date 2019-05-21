@@ -28,6 +28,16 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(123, $collection[0]->a);
     }
 
+    public function testCanCreateCollectionWithTypeFromArgumentList()
+    {
+        $testItem1 = new TestItem(123);
+        $testItem2 = new TestItem(456);
+        $collection = TestCollection::from($testItem1, $testItem2);
+
+        $this->assertEquals(123, $collection[0]->a);
+        $this->assertEquals(456, $collection[1]->a);
+    }
+
     public function testFailIfSetWithWrongType()
     {
         $collection = new TestCollection();

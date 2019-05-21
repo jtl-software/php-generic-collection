@@ -22,17 +22,25 @@ class MyItemCollection extends GenericCollection {
 }
 ```  
 
-You can now add new items to your collection either in bulk or using
-`$collection[] = ...` syntax.  
+You can now add new items to your collection in bulk, using
+`$collection[] = ...` or by using the static `from` function.  
 
 ```php
 $collection = new MyItemCollection();
 $item1 = new MyItem(1);
 $item2 = new MyItem(2);
 $item3 = new MyItem(3);
+$itemList = [
+    $item1,
+    $item2,
+    $item3
+];
 
 $collection[] = $item1;
 $collection->addItemList([$item2, $item3]);
+
+$collection2 = MyItemCollection::from($item1, $item2, $item3);
+$collection3 = MyItemCollection::from(...$itemList);
 ```  
 
 Trying to add a new item that's not of the specified type will throw 
@@ -97,6 +105,7 @@ The following methods are currently implemented:
 | all(Closure)             | Returns true if the closure returns true **for each element**, otherwise false                              |
 | any(Closure)             | Returns true if the closure returns true **for at least one element**, otherwise false                      |
 | find(Closure)            | Returns **the first element** for which the closure returns true                                            |
+| from(...$items)          | Create a new collection from existing items                                                                 |
 
 ### What does zipping do?
 
