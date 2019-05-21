@@ -17,9 +17,9 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * Create a new GenericCollection from a variable-length argument list
      * @param mixed ...$items
-     * @return GenericCollection
+     * @return static
      */
-    public static function from(...$items): GenericCollection
+    public static function from(...$items)
     {
         return (new static())->addItemList($items);
     }
