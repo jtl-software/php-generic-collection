@@ -30,6 +30,17 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     }
 
     /**
+     * @param $value
+     */
+    public function add($value) {
+        if (!$this->checkType($value)) {
+            throw new \InvalidArgumentException('Invalid type');
+        }
+
+        $this->itemList[] = $value;
+    }
+
+    /**
      * Retrieve an external iterator
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
      * @return Traversable An instance of an object implementing <b>Iterator</b> or
@@ -141,7 +152,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * Add a raw array of items to the collection
      *
-     * @param array $itemList
+     * @param GenericCollection|array $itemList
      * @return GenericCollection
      */
     public function addItemList($itemList)
