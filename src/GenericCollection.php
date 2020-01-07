@@ -30,9 +30,10 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      */
-    public function add($value) {
+    public function add($value)
+    {
         if (!$this->checkType($value)) {
             throw new \InvalidArgumentException('Invalid type');
         }

@@ -10,5 +10,6 @@ install:
 script:
     - composer phpcs-dry
     - composer phpstan
+    - php vendor/bin/phpunit
 
 if: branch = master

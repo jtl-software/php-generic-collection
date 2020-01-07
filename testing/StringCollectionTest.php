@@ -8,7 +8,6 @@
 
 namespace JTL\Generic;
 
-
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +17,6 @@ use PHPUnit\Framework\TestCase;
  */
 class StringCollectionTest extends TestCase
 {
-
     public function testCanBeUsedWithStrings()
     {
         $col = new StringCollection();

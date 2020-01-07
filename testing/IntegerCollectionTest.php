@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
  */
 class IntegerCollectionTest extends TestCase
 {
-
     public function testCanBeUsedWithInteger()
     {
         $col = new IntegerCollection();
