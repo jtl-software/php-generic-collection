@@ -58,7 +58,10 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      */
     public function checkType($item)
     {
-        return $this->type === null || ($this->type === 'string' && \is_string($item)) || $item instanceof $this->type;
+        return $this->type === null
+            || ($this->type === 'string' && \is_string($item))
+            || (($this->type === 'integer' || $this->type === 'int') && \is_int($item))
+            || $item instanceof $this->type;
     }
 
     /**
