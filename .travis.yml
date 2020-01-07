@@ -1,7 +1,7 @@
 language: php
 php:
-    - 7.2
     - 7.3
+    - 7.4
 
 install:
     - composer install
@@ -9,5 +9,6 @@ install:
 script:
     - composer phpcs-dry
     - composer phpstan
+    - php vendor/bin/phpunit
 
 if: branch = master
