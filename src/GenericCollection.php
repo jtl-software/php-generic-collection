@@ -6,10 +6,17 @@
 
 namespace JTL\Generic;
 
+use ArrayAccess;
 use Closure;
+use Countable;
+use IteratorAggregate;
 use Traversable;
 
-class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
+/**
+ * @template T
+ * @template-implements IteratorAggregate<T>
+ */
+class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
 {
     protected $itemList = [];
     protected $type;
