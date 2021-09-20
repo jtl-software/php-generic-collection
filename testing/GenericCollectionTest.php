@@ -19,6 +19,22 @@ use PHPUnit\Framework\TestCase;
  */
 class GenericCollectionTest extends TestCase
 {
+    public function testAdd()
+    {
+        $testItem1 = new TestItem(123);
+        $collection = new TestCollection();
+        $collection->add($testItem1);
+
+        $this->assertEquals(123, $collection[0]->a);
+    }
+
+    public function testAddException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $collection = new TestCollection();
+        $collection->add(1);
+    }
+
     public function testCanCreateCollectionWithType()
     {
         $testItem1 = new TestItem(123);
