@@ -47,3 +47,11 @@ class TestCollection3 extends GenericCollection
         return true;
     }
 }
+
+class TestCollection4 extends GenericCollection
+{
+    public function __construct(string $type = null)
+    {
+        parent::__construct($type);
+    }
+}

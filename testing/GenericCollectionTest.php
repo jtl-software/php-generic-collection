@@ -141,9 +141,19 @@ class GenericCollectionTest extends TestCase
 
         $each = function ($item) {
             $this->assertInstanceOf(TestItem::class, $item);
+            $item->a += 1;
         };
 
         $collection->each($each);
+
+        // Check if is not changed
+        $this->assertEquals(111, $testItem1->a);
+        $this->assertEquals(222, $testItem2->a);
+        $this->assertEquals(333, $testItem3->a);
+
+        $this->assertEquals(112, $collection[0]->a);
+        $this->assertEquals(223, $collection[1]->a);
+        $this->assertEquals(334, $collection[2]->a);
     }
 
     public function testCanMap(): void
@@ -200,8 +210,24 @@ class GenericCollectionTest extends TestCase
 
         $filteredCollection = $collection->clone()->filter($filter);
 
-        $this->assertEquals(2, $filteredCollection->count());
         $this->assertEquals(3, $collection->count());
+        $testItem1->a = 444;
+        $testItem2->a = 555;
+        $this->assertEquals(111, $collection[0]->a);
+        $this->assertEquals(222, $collection[1]->a);
+        $this->assertEquals(444, $testItem1->a);
+        $this->assertEquals(555, $testItem2->a);
+
+        $collection[1]->a = 666;
+        $collection[2]->a = 777;
+        $this->assertEquals(666, $collection[1]->a);
+        $this->assertEquals(777, $collection[2]->a);
+        $this->assertEquals(444, $testItem1->a);
+        $this->assertEquals(555, $testItem2->a);
+
+        $this->assertEquals(2, $filteredCollection->count());
+        $this->assertEquals(222, $filteredCollection[1]->a);
+        $this->assertEquals(333, $filteredCollection[2]->a);
     }
 
     public function testCanChain(): void
@@ -242,6 +268,7 @@ class GenericCollectionTest extends TestCase
         $collection2 = new TestCollection2();
         $collection2->addItemList($testItemArray);
 
+        $this->expectExceptionMessage('Invalid type by collections');
         $this->expectException(InvalidArgumentException::class);
         $collection->chain($collection2);
     }
@@ -302,6 +329,11 @@ class GenericCollectionTest extends TestCase
 
         $this->assertEquals(333, $zip[2]->getLeft()->a);
         $this->assertEquals(3000, $zip[2]->getRight()->a);
+
+        $this->assertEquals('JTL\Generic\TestCollection', $zip->getLeftOriginalClassName());
+        $this->assertEquals('JTL\Generic\TestItem', $zip->getLeftOriginalItemType());
+        $this->assertEquals('JTL\Generic\TestCollection', $zip->getRightOriginalClassName());
+        $this->assertEquals('JTL\Generic\TestItem', $zip->getRightOriginalItemType());
     }
 
     public function testCanZipWithDifferentLengths(): void
@@ -359,6 +391,7 @@ class GenericCollectionTest extends TestCase
             return $item;
         });
 
+        $this->expectExceptionMessage('Invalid type in other collection. Expected: ' . $collection2->getType());
         $this->expectException(InvalidArgumentException::class);
         $collection->zip($collection2);
     }
@@ -387,6 +420,7 @@ class GenericCollectionTest extends TestCase
             return $item;
         });
 
+        $this->expectExceptionMessage('Invalid type in collection. Expected: ' . $collection->getType());
         $this->expectException(InvalidArgumentException::class);
         $collection->zip($collection2);
     }
@@ -501,6 +535,24 @@ class GenericCollectionTest extends TestCase
         $this->assertCount(1, $testCollection);
     }
 
+    public function testCheckTypes(): void
+    {
+        $subject = new TestCollection4();
+        $this->assertTrue($subject->checkType(''));
+        $this->assertTrue($subject->checkType([]));
+        $this->assertTrue($subject->checkType(null));
+
+        $subject = new TestCollection4('int');
+        $this->assertTrue($subject->checkType(1));
+
+        $subject = new TestCollection4('string');
+        $this->assertTrue($subject->checkType('12'));
+
+        $subject = new TestCollection4('12');
+        $this->assertFalse($subject->checkType('12'));
+        $this->assertFalse($subject->checkType(12));
+    }
+
     public function testEmptyTypeAllowsAllTypes(): void
     {
         $testItem1 = new TestItem(1000);
@@ -513,5 +565,11 @@ class GenericCollectionTest extends TestCase
 
         $testCollection[] = uniqid('test', true);
         $this->assertCount(3, $testCollection);
+    }
+
+    public function testGetClass(): void
+    {
+        $testCollection = new GenericCollection();
+        $this->assertEquals('JTL\Generic\GenericCollection', $testCollection->getClass());
     }
 }

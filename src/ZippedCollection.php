@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace JTL\Generic;
 
+use InvalidArgumentException;
+
 class ZippedCollection extends GenericCollection
 {
-    private string $leftOriginalClassName;
-
-    private string $leftOriginalItemType;
-
-    private string $rightOriginalClassName;
-
-    private string $rightOriginalItemType;
+    private string $leftOriginalClassName = '';
+    private string $leftOriginalItemType = '';
+    private string $rightOriginalClassName = '';
+    private string $rightOriginalItemType = '';
 
     public function __construct()
     {
@@ -97,19 +96,23 @@ class ZippedCollection extends GenericCollection
      *
      * @return array An array of two collections with index 0 being the collection of left elements and index 1
      * being the collection of right elements
+     *
+     * @throws InvalidArgumentException
      */
     public function unzip(): array
     {
         $leftOriginalClassName = $this->getLeftOriginalClassName();
         $rightOriginalClassName = $this->getRightOriginalClassName();
+        /** @var GenericCollection $leftCollection */
         $leftCollection = new $leftOriginalClassName($this->getLeftOriginalItemType());
+        /** @var GenericCollection $rightCollection */
         $rightCollection = new $rightOriginalClassName($this->getRightOriginalItemType());
 
         /** @var Zip $item */
         foreach ($this->itemList as $item) {
             if (!$leftCollection->checkType($item->getLeft())
                 || !$rightCollection->checkType($item->getRight())) {
-                throw new \InvalidArgumentException('Invalid type');
+                throw new InvalidArgumentException('Invalid type left or right');
             }
 
             $leftCollection[] = $item->getLeft();
