@@ -7,8 +7,9 @@
         "php": "^7.4 | ^8.0",
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^0.12",
-        "friendsofphp/php-cs-fixer": "^2.14",
-        "infection/infection": "^0.25.2"
+        "friendsofphp/php-cs-fixer": "^2.19",
+        "infection/infection": "^0.25.2",
+        "vimeo/psalm": "^4.9"
     },
     "autoload": {
         "psr-4": {
@@ -20,9 +21,16 @@
             "JTL\\Generic\\": "testing/"
         }
     },
+    "config": {
+        "platform": {
+            "php": "7.4.20"
+        },
+        "sort-packages": true
+    },
     "scripts": {
         "tests": [
             "composer phpcs",
+            "composer phpstan",
             "composer phpunit",
             "composer infection"
         ],

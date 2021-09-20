@@ -15,11 +15,11 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     /**
      * Create a new GenericCollection from a variable-length argument list
      * @param mixed ...$items
-     * @return static
+     * @return self
      */
-    public static function from(...$items)
+    public static function from(...$items): self
     {
-        return (new static())->addItemList($items);
+        return (new GenericCollection())->addItemList($items);
     }
 
     public function __construct(string $type = null)
@@ -170,7 +170,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
         return $this;
     }
 
-    public function getClass()
+    public function getClass(): string
     {
         return static::class;
     }
@@ -225,7 +225,7 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     public function clone(): self
     {
         $items = $this->itemList;
-        $collection = new static($this->getType());
+        $collection = new GenericCollection($this->getType());
 
         foreach ($items as $item) {
             $collection[] = clone $item;
@@ -307,8 +307,8 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
      */
     public function partition(Closure $func): array
     {
-        $trueCollection = new static($this->getType());
-        $falseCollection = new static($this->getType());
+        $trueCollection = new self($this->getType());
+        $falseCollection = new self($this->getType());
 
         foreach ($this->itemList as $item) {
             if ($func($item)) {

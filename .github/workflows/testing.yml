@@ -37,6 +37,9 @@ jobs:
       - name: "Run PHP Static Analysis Tool"
         run: vendor/bin/phpstan
 
+#      - name: "Run static analysis"
+#        run: vendor/bin/psalm
+
       - name: "Run test suite"
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
