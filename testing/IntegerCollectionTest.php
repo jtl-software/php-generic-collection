@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /**
  * This File is part of JTL-Software
  *
@@ -17,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 class IntegerCollectionTest extends TestCase
 {
-    public function testCanBeUsedWithInteger()
+    public function testCanBeUsedWithInteger(): void
     {
         $col = new IntegerCollection();
 
@@ -28,7 +30,7 @@ class IntegerCollectionTest extends TestCase
         $this->assertEquals(-1, $col[0]);
     }
 
-    public function testFailWhenUsedWithNumericValues()
+    public function testFailWhenUsedWithNumericValues(): void
     {
         $col = new IntegerCollection();
 

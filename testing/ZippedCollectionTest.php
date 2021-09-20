@@ -1,8 +1,6 @@
 <?php
-/**
- * User: mbrandt
- * Date: 15/03/19
- */
+
+declare(strict_types=1);
 
 namespace JTL\Generic;
 
@@ -19,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ZippedCollectionTest extends TestCase
 {
-    public function testCanUnzip()
+    public function testCanUnzip(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -52,7 +50,7 @@ class ZippedCollectionTest extends TestCase
         $this->assertEquals($collection2, $unzipCollection2);
     }
 
-    public function testFailIfZipIsInvalid()
+    public function testFailIfZipIsInvalid(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);

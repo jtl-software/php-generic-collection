@@ -1,8 +1,6 @@
 <?php
-/**
- * User: mbrandt
- * Date: 15/03/19
- */
+
+declare(strict_types=1);
 
 namespace JTL\Generic;
 
@@ -19,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class GenericCollectionTest extends TestCase
 {
-    public function testAdd()
+    public function testAdd(): void
     {
         $testItem1 = new TestItem(123);
         $collection = new TestCollection();
@@ -28,14 +26,14 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(123, $collection[0]->a);
     }
 
-    public function testAddException()
+    public function testAddException(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $collection = new TestCollection();
         $collection->add(1);
     }
 
-    public function testCanCreateCollectionWithType()
+    public function testCanCreateCollectionWithType(): void
     {
         $testItem1 = new TestItem(123);
         $collection = new TestCollection();
@@ -44,7 +42,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(123, $collection[0]->a);
     }
 
-    public function testCanCreateCollectionWithTypeFromArgumentList()
+    public function testCanCreateCollectionWithTypeFromArgumentList(): void
     {
         $testItem1 = new TestItem(123);
         $testItem2 = new TestItem(456);
@@ -54,14 +52,14 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(456, $collection[1]->a);
     }
 
-    public function testFailIfSetWithWrongType()
+    public function testFailIfSetWithWrongType(): void
     {
         $collection = new TestCollection();
         $this->expectException(InvalidArgumentException::class);
         $collection[] = random_int(1, 100000);
     }
 
-    public function testCanIterate()
+    public function testCanIterate(): void
     {
         $testItem1 = new TestItem(123);
         $collection = new TestCollection();
@@ -72,7 +70,7 @@ class GenericCollectionTest extends TestCase
         }
     }
 
-    public function testCanCheckIfOffsetExists()
+    public function testCanCheckIfOffsetExists(): void
     {
         $testItem1 = new TestItem(123);
         $collection = new TestCollection();
@@ -81,7 +79,7 @@ class GenericCollectionTest extends TestCase
         $this->assertTrue(isset($collection[0]));
     }
 
-    public function testCanUnset()
+    public function testCanUnset(): void
     {
         $testItem1 = new TestItem(123);
         $collection = new TestCollection();
@@ -91,14 +89,14 @@ class GenericCollectionTest extends TestCase
         $this->assertFalse(isset($collection[0]));
     }
 
-    public function testCanGetType()
+    public function testCanGetType(): void
     {
         $collection = new TestCollection();
 
         $this->assertEquals($collection->getType(), TestItem::class);
     }
 
-    public function testCanCountElements()
+    public function testCanCountElements(): void
     {
         $testItem1 = new TestItem(123);
         $collection = new TestCollection();
@@ -107,7 +105,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(1, $collection->count());
     }
 
-    public function testCanAddMultipleFromArray()
+    public function testCanAddMultipleFromArray(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -122,7 +120,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(333, $collection[2]->a);
     }
 
-    public function testFailIfAddMultipleFromArrayHasWrongType()
+    public function testFailIfAddMultipleFromArrayHasWrongType(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -132,7 +130,7 @@ class GenericCollectionTest extends TestCase
         $collection->addItemList($testItemArray);
     }
 
-    public function testCanDoEach()
+    public function testCanDoEach(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -148,7 +146,7 @@ class GenericCollectionTest extends TestCase
         $collection->each($each);
     }
 
-    public function testCanMap()
+    public function testCanMap(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -169,7 +167,7 @@ class GenericCollectionTest extends TestCase
         }
     }
 
-    public function testCanFilter()
+    public function testCanFilter(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -187,7 +185,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(2, $collection->count());
     }
 
-    public function testCanClone()
+    public function testCanClone(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -206,7 +204,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(3, $collection->count());
     }
 
-    public function testCanChain()
+    public function testCanChain(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -228,7 +226,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(3, $collection2->count());
     }
 
-    public function testFailChainIfTypesIncompatible()
+    public function testFailChainIfTypesIncompatible(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -248,7 +246,7 @@ class GenericCollectionTest extends TestCase
         $collection->chain($collection2);
     }
 
-    public function testFailChainIfItemTypeIncompatible()
+    public function testFailChainIfItemTypeIncompatible(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -276,7 +274,7 @@ class GenericCollectionTest extends TestCase
         $collection->chain($collection2);
     }
 
-    public function testCanZip()
+    public function testCanZip(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -306,7 +304,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(3000, $zip[2]->getRight()->a);
     }
 
-    public function testCanZipWithDifferentLengths()
+    public function testCanZipWithDifferentLengths(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -337,7 +335,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(3000, $zip[2]->getRight()->a);
     }
 
-    public function testFailZipIfOtherCollectionTypesIncompatible()
+    public function testFailZipIfOtherCollectionTypesIncompatible(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -365,7 +363,7 @@ class GenericCollectionTest extends TestCase
         $collection->zip($collection2);
     }
 
-    public function testFailZipIfOwnCollectionTypesIncompatible()
+    public function testFailZipIfOwnCollectionTypesIncompatible(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -393,7 +391,7 @@ class GenericCollectionTest extends TestCase
         $collection->zip($collection2);
     }
 
-    public function testCanPartition()
+    public function testCanPartition(): void
     {
         $testItem1 = new TestItem(111);
         $testItem2 = new TestItem(222);
@@ -427,7 +425,7 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(3000, $gte1000[2]->a);
     }
 
-    public function testCanReduce()
+    public function testCanReduce(): void
     {
         $testItem1 = new TestItem(1000);
         $testItem2 = new TestItem(2000);
@@ -441,7 +439,7 @@ class GenericCollectionTest extends TestCase
         }));
     }
 
-    public function testCanTestAll()
+    public function testCanTestAll(): void
     {
         $testItem1 = new TestItem(1000);
         $testItem2 = new TestItem(2000);
@@ -459,7 +457,7 @@ class GenericCollectionTest extends TestCase
         }));
     }
 
-    public function testCanTestAny()
+    public function testCanTestAny(): void
     {
         $testItem1 = new TestItem(1000);
         $testItem2 = new TestItem(2000);
@@ -477,7 +475,7 @@ class GenericCollectionTest extends TestCase
         }));
     }
 
-    public function testCanFind()
+    public function testCanFind(): void
     {
         $testItem1 = new TestItem(1000);
         $testItem2 = new TestItem(2000);
@@ -495,7 +493,7 @@ class GenericCollectionTest extends TestCase
         }));
     }
 
-    public function testCanOmitTypeInConstructor()
+    public function testCanOmitTypeInConstructor(): void
     {
         $testItem1 = new TestItem(1000);
         $testCollection = new TestCollection3();
@@ -503,7 +501,7 @@ class GenericCollectionTest extends TestCase
         $this->assertCount(1, $testCollection);
     }
 
-    public function testEmptyTypeAllowsAllTypes()
+    public function testEmptyTypeAllowsAllTypes(): void
     {
         $testItem1 = new TestItem(1000);
         $testCollection = new GenericCollection();

@@ -1,8 +1,6 @@
 <?php
-/**
- * User: mbrandt
- * Date: 15/03/19
- */
+
+declare(strict_types=1);
 
 namespace JTL\Generic;
 
@@ -15,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ZipTest extends TestCase
 {
-    public function testCanCreateTuple()
+    public function testCanCreateTuple(): void
     {
         $first = random_int(1, 100000);
         $second = random_int(1, 100000);

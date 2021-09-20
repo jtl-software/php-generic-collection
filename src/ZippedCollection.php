@@ -1,24 +1,18 @@
 <?php
-/**
- * User: mbrandt
- * Date: 15/03/19
- */
+
+declare(strict_types=1);
 
 namespace JTL\Generic;
 
 class ZippedCollection extends GenericCollection
 {
-    /** @var string */
-    private $leftOriginalClassName;
+    private string $leftOriginalClassName;
 
-    /** @var string */
-    private $leftOriginalItemType;
+    private string $leftOriginalItemType;
 
-    /** @var string */
-    private $rightOriginalClassName;
+    private string $rightOriginalClassName;
 
-    /** @var string */
-    private $rightOriginalItemType;
+    private string $rightOriginalItemType;
 
     public function __construct()
     {

@@ -1,8 +1,6 @@
 <?php
-/**
- * User: mbrandt
- * Date: 18/03/19
- */
+
+declare(strict_types=1);
 
 namespace JTL\Generic;
 

@@ -4,7 +4,7 @@
     "type": "jtl-library",
     "license": "MIT",
     "require-dev": {
-        "php": "^7.3 | ^8.0",
+        "php": "^7.4 | ^8.0",
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^0.12",
         "friendsofphp/php-cs-fixer": "^2.14",

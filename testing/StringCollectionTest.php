@@ -1,10 +1,6 @@
-<?php declare(strict_types=1);
-/**
- * This File is part of JTL-Software
- *
- * User: sleipi
- * Date: 1/7/20
- */
+<?php
+
+declare(strict_types=1);
 
 namespace JTL\Generic;
 
@@ -17,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class StringCollectionTest extends TestCase
 {
-    public function testCanBeUsedWithStrings()
+    public function testCanBeUsedWithStrings(): void
     {
         $col = new StringCollection();
 
@@ -28,7 +24,7 @@ class StringCollectionTest extends TestCase
         $this->assertEquals('bar', $col[1]);
     }
 
-    public function testFailWhenUsedWithNumericValues()
+    public function testFailWhenUsedWithNumericValues(): void
     {
         $col = new StringCollection();
 
