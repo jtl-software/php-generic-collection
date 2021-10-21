@@ -393,4 +393,21 @@ class GenericCollection implements \IteratorAggregate, \ArrayAccess, \Countable
 
         return null;
     }
+
+    public function sort(callable $sortFn): self
+    {
+        usort($this->itemList, $sortFn);
+        return $this;
+    }
+
+    public function reverse(): self
+    {
+        $this->itemList = array_reverse($this->itemList);
+        return $this;
+    }
+
+    public function getItemList(): array
+    {
+        return $this->itemList;
+    }
 }
