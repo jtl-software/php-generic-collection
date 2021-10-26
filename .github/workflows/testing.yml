@@ -44,4 +44,4 @@ jobs:
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: "Run mutation tests"
-        run: vendor/bin/infection
+        run: vendor/bin/infection --min-covered-msi=98 --min-msi=98

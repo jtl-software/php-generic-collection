@@ -35,7 +35,7 @@
             "composer infection"
         ],
         "infection": [
-            "vendor/bin/infection -s -j4"
+            "vendor/bin/infection -s -j4 --min-covered-msi=98 --min-msi=98"
         ],
         "phpunit": [
             "vendor/bin/phpunit"
