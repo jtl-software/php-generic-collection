@@ -111,7 +111,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @return void
      * @since 5.0.0
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (!$this->checkType($value)) {
             throw new InvalidArgumentException('Invalid type for offset');
@@ -169,7 +169,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
                 throw new InvalidArgumentException('Invalid type to add in list');
             }
 
-            $this->itemList[] = clone $item;
+            $this->itemList[] = is_scalar($item) ? $item : clone $item;
         }
 
         return $this;
