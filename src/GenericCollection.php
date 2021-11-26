@@ -9,6 +9,7 @@ use ArrayIterator;
 use Closure;
 use Countable;
 use InvalidArgumentException;
+use Iterator;
 use IteratorAggregate;
 use Traversable;
 
@@ -47,11 +48,11 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Retrieve an external iterator
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
-     * @return Traversable An instance of an object implementing <b>Iterator</b> or
+     * @return Iterator|Traversable An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
      * @since 5.0.0
      */
-    public function getIterator(): Traversable
+    public function getIterator(): Iterator | Traversable
     {
         return new ArrayIterator($this->itemList);
     }
@@ -94,7 +95,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @return mixed Can return all value types.
      * @since 5.0.0
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->itemList[$offset] ?? null;
     }
@@ -333,7 +334,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param Closure $func
      * @return mixed
      */
-    public function reduce(Closure $func)
+    public function reduce(Closure $func): mixed
     {
         return array_reduce($this->itemList, $func);
     }

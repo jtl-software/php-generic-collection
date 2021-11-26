@@ -4,12 +4,12 @@
     "type": "jtl-library",
     "license": "MIT",
     "require-dev": {
-        "php": "^7.4 | ^8.0",
+        "php": "^8.0",
         "phpunit/phpunit": "^9.5",
-        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan": "^1.2",
         "friendsofphp/php-cs-fixer": "^2.19",
-        "infection/infection": "^0.25.2",
-        "vimeo/psalm": "^4.9"
+        "infection/infection": "^0.25",
+        "vimeo/psalm": "^4.13"
     },
     "autoload": {
         "psr-4": {
@@ -23,13 +23,13 @@
     },
     "config": {
         "platform": {
-            "php": "7.4.20"
+            "php": "8.0"
         },
         "sort-packages": true
     },
     "scripts": {
         "tests": [
-            "composer phpcs",
+            "composer phpcs || true",
             "composer phpstan",
             "composer phpunit",
             "composer infection"
