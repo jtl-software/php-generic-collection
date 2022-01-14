@@ -1,8 +1,6 @@
-<?php declare(strict_types=1);
-/**
- * User: sleipi
- * Date: 07/01/20
- */
+<?php
+
+declare(strict_types=1);
 
 namespace JTL\Generic;
 

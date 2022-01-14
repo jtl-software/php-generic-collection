@@ -5,6 +5,6 @@ $finder->in(['src', 'testing']);
 
 $config = PhpCsFixer\Config::create();
 $config->setFinder($finder);
-$config->setRules(['@PSR2' => true]);
+$config->setRules(['@PSR12' => true]);
 
 return $config;

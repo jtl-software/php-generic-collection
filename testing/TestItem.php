@@ -1,8 +1,6 @@
 <?php
-/**
- * User: mbrandt
- * Date: 18/03/19
- */
+
+declare(strict_types=1);
 
 namespace JTL\Generic;
 
@@ -47,5 +45,13 @@ class TestCollection3 extends GenericCollection
     public function checkType($item): bool
     {
         return true;
+    }
+}
+
+class TestCollection4 extends GenericCollection
+{
+    public function __construct(string $type = null)
+    {
+        parent::__construct($type);
     }
 }
