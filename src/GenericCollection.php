@@ -25,7 +25,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      */
     public static function from(...$items): self
     {
-        return (new GenericCollection())->addItemList($items);
+        return (new static())->addItemList($items);
     }
 
     public function __construct(string $type = null)
@@ -230,7 +230,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      */
     public function clone(): self
     {
-        $collection = new GenericCollection($this->getType());
+        $collection = new static($this->getType());
 
         foreach ($this->itemList as $item) {
             $collection[] = clone $item;
@@ -312,8 +312,8 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      */
     public function partition(Closure $func): array
     {
-        $trueCollection = new self($this->getType());
-        $falseCollection = new self($this->getType());
+        $trueCollection = new static($this->getType());
+        $falseCollection = new static($this->getType());
 
         foreach ($this->itemList as $item) {
             if ($func($item)) {

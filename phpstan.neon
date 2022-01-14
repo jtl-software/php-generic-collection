@@ -4,3 +4,5 @@ parameters:
         - src
         - testing
     phpVersion: 80000
+    ignoreErrors:
+        - '#Unsafe usage of new static#'
