@@ -8,28 +8,17 @@ namespace JTL\Generic;
 
 class Zip
 {
-    private $left;
-    private $right;
-
-    public function __construct($first, $second)
+    public function __construct(private mixed $first, private mixed $second)
     {
-        $this->left = $first;
-        $this->right = $second;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLeft()
+    public function getLeft(): mixed
     {
-        return $this->left;
+        return $this->first;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRight()
+    public function getRight(): mixed
     {
-        return $this->right;
+        return $this->second;
     }
 }

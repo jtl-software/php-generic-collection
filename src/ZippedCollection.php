@@ -108,7 +108,9 @@ class ZippedCollection extends GenericCollection
     {
         $leftOriginalClassName = $this->getLeftOriginalClassName();
         $rightOriginalClassName = $this->getRightOriginalClassName();
+        /** @var GenericCollection $leftCollection */
         $leftCollection = new $leftOriginalClassName($this->getLeftOriginalItemType());
+        /** @var GenericCollection $rightCollection */
         $rightCollection = new $rightOriginalClassName($this->getRightOriginalItemType());
 
         /** @var Zip $item */

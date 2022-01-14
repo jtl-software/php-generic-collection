@@ -3,7 +3,7 @@
 $finder = PhpCsFixer\Finder::create();
 $finder->in(['src', 'testing']);
 
-$config = PhpCsFixer\Config::create();
+$config = new PhpCsFixer\Config();
 $config->setFinder($finder);
 $config->setRules(['@PSR2' => true]);
 
