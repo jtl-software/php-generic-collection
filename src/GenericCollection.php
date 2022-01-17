@@ -170,7 +170,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
                 throw new InvalidArgumentException('Invalid type to add in list');
             }
 
-            $this->itemList[] = is_scalar($item) ? $item : clone $item;
+            $this->itemList[] = $item;
         }
 
         return $this;

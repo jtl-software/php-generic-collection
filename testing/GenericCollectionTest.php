@@ -146,11 +146,6 @@ class GenericCollectionTest extends TestCase
 
         $collection->each($each);
 
-        // Check if is not changed
-        $this->assertEquals(111, $testItem1->a);
-        $this->assertEquals(222, $testItem2->a);
-        $this->assertEquals(333, $testItem3->a);
-
         $this->assertEquals(112, $collection[0]->a);
         $this->assertEquals(223, $collection[1]->a);
         $this->assertEquals(334, $collection[2]->a);
@@ -213,17 +208,13 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals(3, $collection->count());
         $testItem1->a = 444;
         $testItem2->a = 555;
-        $this->assertEquals(111, $collection[0]->a);
-        $this->assertEquals(222, $collection[1]->a);
-        $this->assertEquals(444, $testItem1->a);
-        $this->assertEquals(555, $testItem2->a);
+        $this->assertEquals(222, $filteredCollection[1]->a);
+        $this->assertEquals(333, $filteredCollection[2]->a);
 
         $collection[1]->a = 666;
         $collection[2]->a = 777;
         $this->assertEquals(666, $collection[1]->a);
         $this->assertEquals(777, $collection[2]->a);
-        $this->assertEquals(444, $testItem1->a);
-        $this->assertEquals(555, $testItem2->a);
 
         $this->assertEquals(2, $filteredCollection->count());
         $this->assertEquals(222, $filteredCollection[1]->a);
