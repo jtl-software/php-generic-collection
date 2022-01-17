@@ -21,9 +21,9 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Create a new GenericCollection from a variable-length argument list
      * @param mixed ...$items
-     * @return self
+     * @return static
      */
-    public static function from(...$items): self
+    public static function from(...$items): static
     {
         return (new static())->addItemList($items);
     }
@@ -161,9 +161,9 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * Add a raw array of items to the collection
      *
      * @param GenericCollection|array $itemList
-     * @return GenericCollection
+     * @return static
      */
-    public function addItemList($itemList): self
+    public function addItemList($itemList): static
     {
         foreach ($itemList as $item) {
             if (!$this->checkType($item)) {
