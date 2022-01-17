@@ -205,7 +205,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param Closure $func
      * @return GenericCollection
      */
-    public function map(Closure $func): self
+    public function map(Closure $func)
     {
         $this->itemList = array_map($func, $this->itemList);
         return $this;
@@ -228,7 +228,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @return GenericCollection
      */
-    public function clone(): self
+    public function clone()
     {
         $collection = new static($this->getType());
 
@@ -245,7 +245,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param GenericCollection $other
      * @return GenericCollection
      */
-    public function chain(GenericCollection $other): self
+    public function chain(GenericCollection $other)
     {
         if ($other->getType() !== $this->getType()) {
             throw new InvalidArgumentException('Invalid type by collections');
@@ -310,7 +310,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @return array An array of two collections with index 0 being the 'true' collection and index 1 being the
      * 'false' collection
      */
-    public function partition(Closure $func): array
+    public function partition(Closure $func)
     {
         $trueCollection = new static($this->getType());
         $falseCollection = new static($this->getType());
@@ -334,7 +334,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param Closure $func
      * @return mixed
      */
-    public function reduce(Closure $func): mixed
+    public function reduce(Closure $func)
     {
         return array_reduce($this->itemList, $func);
     }
