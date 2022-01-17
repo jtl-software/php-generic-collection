@@ -217,7 +217,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param Closure $func
      * @return GenericCollection
      */
-    public function filter(Closure $func): self
+    public function filter(Closure $func)
     {
         $this->itemList = array_filter($this->itemList, $func);
         return $this;
