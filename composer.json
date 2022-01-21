@@ -25,11 +25,15 @@
         "platform": {
             "php": "8.0"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "infection/extension-installer": true
+        }
     },
     "scripts": {
         "tests": [
-            "composer phpcs || true",
+            "composer phpcs",
             "composer phpstan",
             "composer phpunit",
             "composer infection"
