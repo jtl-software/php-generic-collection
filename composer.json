@@ -7,7 +7,7 @@
         "php": "^8.0",
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^1.2",
-        "friendsofphp/php-cs-fixer": "^2.19",
+        "friendsofphp/php-cs-fixer": "^3.4",
         "infection/infection": "^0.25",
         "vimeo/psalm": "^4.13"
     },
