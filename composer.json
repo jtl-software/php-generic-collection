@@ -8,7 +8,7 @@
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^1.2",
         "friendsofphp/php-cs-fixer": "^3.4",
-        "infection/infection": "^0.25",
+        "infection/infection": "^0.26",
         "vimeo/psalm": "^4.13"
     },
     "autoload": {
