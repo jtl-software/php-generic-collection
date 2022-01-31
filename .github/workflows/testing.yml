@@ -28,10 +28,10 @@ jobs:
       - name: "Install dependencies"
         run: composer install --prefer-dist --no-progress
 
-#      - name: "Check Code Style"
-#        run: composer phpcs-dry
-#        env:
-#          PHP_CS_FIXER_IGNORE_ENV: 1
+      - name: "Check Code Style"
+        run: composer phpcs-dry
+        env:
+          PHP_CS_FIXER_IGNORE_ENV: 1
 
       - name: "Run PHP Static Analysis Tool"
         run: vendor/bin/phpstan

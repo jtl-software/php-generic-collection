@@ -205,7 +205,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param Closure $func
      * @return GenericCollection
      */
-    public function map(Closure $func)
+    public function map(Closure $func): self
     {
         $this->itemList = array_map($func, $this->itemList);
         return $this;
@@ -245,7 +245,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param GenericCollection $other
      * @return GenericCollection
      */
-    public function chain(GenericCollection $other)
+    public function chain(GenericCollection $other): self
     {
         if ($other->getType() !== $this->getType()) {
             throw new InvalidArgumentException('Invalid type by collections');
