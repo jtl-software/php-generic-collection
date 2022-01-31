@@ -1,9 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create();
 $finder->in(['src', 'testing']);
 
-$config = PhpCsFixer\Config::create();
+$config = new PhpCsFixer\Config();
 $config->setFinder($finder);
 $config->setRules(['@PSR12' => true]);
 

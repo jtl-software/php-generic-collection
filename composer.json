@@ -7,7 +7,7 @@
         "php": "^8.0",
         "phpunit/phpunit": "^9.5",
         "phpstan/phpstan": "^1.2",
-        "friendsofphp/php-cs-fixer": "^3.4",
+        "friendsofphp/php-cs-fixer": "^3.5",
         "infection/infection": "^0.26",
         "vimeo/psalm": "^4.13"
     },
@@ -48,10 +48,10 @@
             "vendor/bin/phpstan analyse -c phpstan.neon"
         ],
         "phpcs": [
-            "vendor/bin/php-cs-fixer fix --config=./.php_cs.dist"
+            "vendor/bin/php-cs-fixer fix --config=./.php_cs-fixer.dist.php"
         ],
         "phpcs-dry": [
-            "vendor/bin/php-cs-fixer fix --config=./.php_cs.dist -v --dry-run --using-cache=no"
+            "vendor/bin/php-cs-fixer fix --config=./.php_cs-fixer.dist.php -v --dry-run --using-cache=no"
         ]
     }
 }
