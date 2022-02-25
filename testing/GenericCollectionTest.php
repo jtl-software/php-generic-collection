@@ -12,8 +12,8 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \JTL\Generic\GenericCollection
  *
- * @uses \JTL\Generic\Zip
- * @uses \JTL\Generic\ZippedCollection
+ * @uses   \JTL\Generic\Zip
+ * @uses   \JTL\Generic\ZippedCollection
  */
 class GenericCollectionTest extends TestCase
 {
@@ -562,5 +562,26 @@ class GenericCollectionTest extends TestCase
     {
         $testCollection = new GenericCollection();
         $this->assertEquals('JTL\Generic\GenericCollection', $testCollection->getClass());
+    }
+
+    public function testCanChunk(): void
+    {
+        $pieces = [];
+        $sut = new GenericCollection('string');
+        for ($i = 0; $i < 10; $i++) {
+            $pieces[$i] = uniqid();
+            $sut->add($pieces[$i]);
+        }
+
+        self::assertSame(10, $sut->count());
+        $chunkList = $sut->chunk(2);
+        self::assertCount(5, $chunkList);
+        foreach ($chunkList as $key => $chunk) {
+            self::assertInstanceOf(GenericCollection::class, $chunk);
+            self::assertSame(2, $chunk->count());
+            foreach ($chunk as $chunkKey => $piece) {
+                self::assertSame($pieces[($key*2)+$chunkKey], $piece);
+            }
+        }
     }
 }
