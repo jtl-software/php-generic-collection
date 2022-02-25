@@ -401,13 +401,13 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * Split an Collection into chunks
      *
      * @param int $length
-     * @param bool $preserve_keys
+     * @param bool $preserveKeys
      * @return array|GenericCollection[]
      */
-    public function chunk(int $length, bool $preserve_keys = false): array
+    public function chunk(int $length, bool $preserveKeys = false): array
     {
         $chunkList = [];
-        foreach (array_chunk($this->itemList, $length, $preserve_keys) as $chunk) {
+        foreach (array_chunk($this->itemList, $length, $preserveKeys) as $chunk) {
             $chunkList[] = self::from(...$chunk);
         }
         return $chunkList;

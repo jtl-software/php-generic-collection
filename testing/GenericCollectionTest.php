@@ -574,14 +574,29 @@ class GenericCollectionTest extends TestCase
         }
 
         self::assertSame(10, $sut->count());
-        $chunkList = $sut->chunk(2);
-        self::assertCount(5, $chunkList);
-        foreach ($chunkList as $key => $chunk) {
-            self::assertInstanceOf(GenericCollection::class, $chunk);
-            self::assertSame(2, $chunk->count());
-            foreach ($chunk as $chunkKey => $piece) {
-                self::assertSame($pieces[($key*2)+$chunkKey], $piece);
-            }
-        }
+        $chunkList = $sut->chunk(4);
+        self::assertCount(3, $chunkList);
+
+        $chunk1 = $chunkList[0];
+        self::assertInstanceOf(GenericCollection::class, $chunk1);
+        self::assertSame(4, $chunk1->count());
+        self::assertSame($pieces[0], $chunk1->offsetGet(0));
+        self::assertSame($pieces[1], $chunk1->offsetGet(1));
+        self::assertSame($pieces[2], $chunk1->offsetGet(2));
+        self::assertSame($pieces[3], $chunk1->offsetGet(3));
+
+        $chunk2 = $chunkList[1];
+        self::assertInstanceOf(GenericCollection::class, $chunk2);
+        self::assertSame(4, $chunk2->count());
+        self::assertSame($pieces[4], $chunk2->offsetGet(0));
+        self::assertSame($pieces[5], $chunk2->offsetGet(1));
+        self::assertSame($pieces[6], $chunk2->offsetGet(2));
+        self::assertSame($pieces[7], $chunk2->offsetGet(3));
+
+        $chunk3 = $chunkList[2];
+        self::assertInstanceOf(GenericCollection::class, $chunk3);
+        self::assertSame(2, $chunk3->count());
+        self::assertSame($pieces[8], $chunk3->offsetGet(0));
+        self::assertSame($pieces[9], $chunk3->offsetGet(1));
     }
 }
