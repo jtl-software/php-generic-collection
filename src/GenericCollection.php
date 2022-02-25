@@ -52,7 +52,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * <b>Traversable</b>
      * @since 5.0.0
      */
-    public function getIterator(): Iterator | Traversable
+    public function getIterator(): Iterator|Traversable
     {
         return new ArrayIterator($this->itemList);
     }
@@ -395,5 +395,21 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
         }
 
         return null;
+    }
+
+    /**
+     * Split an Collection into chunks
+     *
+     * @param int $length
+     * @param bool $preserveKeys
+     * @return array|GenericCollection[]
+     */
+    public function chunk(int $length, bool $preserveKeys = false): array
+    {
+        $chunkList = [];
+        foreach (array_chunk($this->itemList, $length, $preserveKeys) as $chunk) {
+            $chunkList[] = self::from(...$chunk);
+        }
+        return $chunkList;
     }
 }
