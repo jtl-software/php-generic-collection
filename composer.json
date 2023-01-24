@@ -9,7 +9,7 @@
         "phpstan/phpstan": "^1.2",
         "friendsofphp/php-cs-fixer": "^3.5",
         "infection/infection": "^0.26",
-        "vimeo/psalm": "^4.13"
+        "vimeo/psalm": "^5.6"
     },
     "autoload": {
         "psr-4": {
