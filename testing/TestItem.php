@@ -4,26 +4,47 @@ declare(strict_types=1);
 
 namespace JTL\Generic;
 
+/**
+ * @template T
+ */
 class TestItem
 {
+    /**
+     * @var T
+     */
     public $a;
 
+    /**
+     * @param T $a
+     */
     public function __construct($a)
     {
         $this->a = $a;
     }
 }
 
+/**
+ * @template T
+ */
 class TestItem2
 {
+    /**
+     * @var T
+     */
     public $a;
 
+    /**
+     * @param T $a
+     */
     public function __construct($a)
     {
         $this->a = $a;
     }
 }
 
+/**
+ * @extends GenericCollection<TestItem>
+ */
 class TestCollection extends GenericCollection
 {
     public function __construct()
@@ -32,6 +53,9 @@ class TestCollection extends GenericCollection
     }
 }
 
+/**
+ * @extends GenericCollection<TestItem2>
+ */
 class TestCollection2 extends GenericCollection
 {
     public function __construct()
@@ -40,6 +64,9 @@ class TestCollection2 extends GenericCollection
     }
 }
 
+/**
+ * @extends GenericCollection<mixed>
+ */
 class TestCollection3 extends GenericCollection
 {
     public function checkType($item): bool
@@ -48,6 +75,9 @@ class TestCollection3 extends GenericCollection
     }
 }
 
+/**
+ * @extends GenericCollection<mixed>
+ */
 class TestCollection4 extends GenericCollection
 {
     public function __construct(string $type = null)

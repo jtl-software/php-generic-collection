@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JTL\Generic;
 
 /**
- * @method int offsetGet($offset)
+ * @extends GenericCollection<int>
  */
 final class IntegerCollection extends GenericCollection
 {

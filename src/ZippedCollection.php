@@ -6,10 +6,21 @@ namespace JTL\Generic;
 
 use InvalidArgumentException;
 
+/**
+ * @template TCollectionItemLeft
+ * @template TCollectionItemRight
+ * @extends GenericCollection<Zip<TCollectionItemLeft,TCollectionItemRight>>
+ */
 class ZippedCollection extends GenericCollection
 {
+    /**
+     * @var class-string<GenericCollection>|''
+     */
     private string $leftOriginalClassName = '';
     private string $leftOriginalItemType = '';
+    /**
+     * @var class-string<GenericCollection>|''
+     */
     private string $rightOriginalClassName = '';
     private string $rightOriginalItemType = '';
 
@@ -19,7 +30,7 @@ class ZippedCollection extends GenericCollection
     }
 
     /**
-     * @return string
+     * @return class-string<GenericCollection>|''
      */
     public function getLeftOriginalClassName(): string
     {
@@ -27,8 +38,7 @@ class ZippedCollection extends GenericCollection
     }
 
     /**
-     * @param string $leftOriginalClassName
-     * @return ZippedCollection
+     * @param class-string<GenericCollection> $leftOriginalClassName
      */
     public function setLeftOriginalClassName(string $leftOriginalClassName): ZippedCollection
     {
@@ -36,18 +46,11 @@ class ZippedCollection extends GenericCollection
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getLeftOriginalItemType(): string
     {
         return $this->leftOriginalItemType;
     }
 
-    /**
-     * @param string $leftOriginalItemType
-     * @return ZippedCollection
-     */
     public function setLeftOriginalItemType(string $leftOriginalItemType): ZippedCollection
     {
         $this->leftOriginalItemType = $leftOriginalItemType;
@@ -55,7 +58,7 @@ class ZippedCollection extends GenericCollection
     }
 
     /**
-     * @return string
+     * @return class-string<GenericCollection>|''
      */
     public function getRightOriginalClassName(): string
     {
@@ -63,8 +66,7 @@ class ZippedCollection extends GenericCollection
     }
 
     /**
-     * @param string $rightOriginalClassName
-     * @return ZippedCollection
+     * @param class-string<GenericCollection> $rightOriginalClassName
      */
     public function setRightOriginalClassName(string $rightOriginalClassName): ZippedCollection
     {
@@ -72,18 +74,11 @@ class ZippedCollection extends GenericCollection
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getRightOriginalItemType(): string
     {
         return $this->rightOriginalItemType;
     }
 
-    /**
-     * @param string $rightOriginalItemType
-     * @return ZippedCollection
-     */
     public function setRightOriginalItemType(string $rightOriginalItemType): ZippedCollection
     {
         $this->rightOriginalItemType = $rightOriginalItemType;
