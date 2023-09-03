@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace JTL\Generic;
+
 use JTL\Generic\TestItem;
 use PHPUnit\Framework\TestCase;
 
