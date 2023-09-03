@@ -129,7 +129,6 @@ class GenericCollectionTest extends TestCase
         $testItemArray = [$testItem1, $testItem2, 'TEST'];
         $collection = new TestCollection();
         $this->expectException(InvalidArgumentException::class);
-        /* @phpstan-ignore-next-line | fail test | is ok here */
         $collection->addItemList($testItemArray);
     }
 

@@ -29,7 +29,10 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Create a new GenericCollection from a variable-length argument list.
      *
-     * @param T ...$items
+     * @template TFrom as T
+     * @param TFrom ...$items
+     * @return static<TFrom>
+     * @phpstan-ignore-next-line | static<T> is not 100% supported
      */
     public static function from(...$items): static
     {
@@ -63,6 +66,14 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     public function getIterator(): Iterator|Traversable
     {
         return new ArrayIterator($this->itemList);
+    }
+
+    /**
+     * @return array<int,T>
+     */
+    public function getArray(): array
+    {
+        return $this->itemList;
     }
 
     /**
@@ -100,7 +111,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param int $offset <p>
      * The offset to retrieve.
      * </p>
-     * @return T Can return all value types.
+     * @return null|T
      */
     public function offsetGet($offset): mixed
     {
@@ -164,7 +175,10 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Add a raw array of items to the collection.
      *
-     * @param Traversable<int,T>|array<int,T> $itemList
+     * @template TAddItemList as T
+     * @param Traversable<array-key,TAddItemList>|array<array-key,TAddItemList> $itemList
+     * @return static<(T&TAddItemList)>
+     * @phpstan-ignore-next-line | static<T> is not 100% supported
      */
     public function addItemList($itemList): static
     {
