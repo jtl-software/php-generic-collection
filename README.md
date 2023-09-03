@@ -43,17 +43,38 @@ $collection2 = MyItemCollection::from($item1, $item2, $item3);
 $collection3 = MyItemCollection::from(...$itemList);
 ```  
 
+Alternative you can just use the generic `ObjectCollection` without creating a new 
+collection class for every object type.
+
+```php
+$collection = new ObjectCollection(MyItem::class);
+$item1 = new MyItem(1);
+$item2 = new MyItem(2);
+$item3 = new MyItem(3);
+$itemList = [
+    $item1,
+    $item2,
+    $item3
+];
+
+$collection[] = $item1;
+$collection->addItemList([$item2, $item3]);
+
+$collection2 = ObjectCollection::from($item1, $item2, $item3);
+$collection3 = ObjectCollection::from(...$itemList);
+```
+
 Trying to add a new item that's not of the specified type will throw 
 an InvalidArgumentException.  
 
 ```php
-$collection = new MyItemCollection();
+$collection = new ObjectCollection(MyItem::class);
 $item1 = new MyItem(1);
 $item2 = 'not MyItem';
 $item3 = new MyItem(3);
 
 $collection[] = $item1;
-$collection[] = $item2; // <- Doesn't work. This will throw an exception
+$collection[] = $item2; // <- Doesn't work. This will throw an exception + PHPStan will report the error
 $collection->addItemList([$item2, $item3]); // <- This won't work either because $item2 is not a 'MyItem'
 ```  
 
