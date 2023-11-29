@@ -29,6 +29,7 @@ class StringCollectionTest extends TestCase
         $col = new StringCollection();
 
         $this->expectException(\InvalidArgumentException::class);
+        /* @phpstan-ignore-next-line | fail test | is ok here */
         $col[] = 1;
     }
 }

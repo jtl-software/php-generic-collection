@@ -2,18 +2,27 @@
 
 declare(strict_types=1);
 
-/**
- * User: mbrandt
- * Date: 15/03/19
- */
-
 namespace JTL\Generic;
 
+/**
+ * @template TCollectionItemLeft
+ * @template TCollectionItemRight
+ */
 class Zip
 {
+    /**
+     * @var TCollectionItemLeft
+     */
     private $left;
+    /**
+     * @var TCollectionItemRight
+     */
     private $right;
 
+    /**
+     * @param TCollectionItemLeft $first
+     * @param TCollectionItemRight $second
+     */
     public function __construct($first, $second)
     {
         $this->left = $first;
@@ -21,7 +30,7 @@ class Zip
     }
 
     /**
-     * @return mixed
+     * @return TCollectionItemLeft
      */
     public function getLeft()
     {
@@ -29,7 +38,7 @@ class Zip
     }
 
     /**
-     * @return mixed
+     * @return TCollectionItemRight
      */
     public function getRight()
     {

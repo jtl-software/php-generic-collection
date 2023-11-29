@@ -30,6 +30,7 @@ class GenericCollectionTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $collection = new TestCollection();
+        /* @phpstan-ignore-next-line | fail test | is ok here */
         $collection->add(1);
     }
 
@@ -56,6 +57,7 @@ class GenericCollectionTest extends TestCase
     {
         $collection = new TestCollection();
         $this->expectException(InvalidArgumentException::class);
+        /* @phpstan-ignore-next-line | fail test | is ok here */
         $collection[] = random_int(1, 100000);
     }
 
@@ -261,6 +263,7 @@ class GenericCollectionTest extends TestCase
 
         $this->expectExceptionMessage('Invalid type by collections');
         $this->expectException(InvalidArgumentException::class);
+        /* @phpstan-ignore-next-line | fail test | is ok here */
         $collection->chain($collection2);
     }
 

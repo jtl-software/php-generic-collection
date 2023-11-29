@@ -13,15 +13,26 @@ use Iterator;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @template T
+ * @implements IteratorAggregate<int,T>
+ * @implements ArrayAccess<int,T>
+ */
 class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
 {
+    /**
+     * @var array<int,T>
+     */
     protected array $itemList = [];
     protected ?string $type;
 
     /**
-     * Create a new GenericCollection from a variable-length argument list
-     * @param mixed ...$items
-     * @return static
+     * Create a new GenericCollection from a variable-length argument list.
+     *
+     * @template TFrom as T
+     * @param TFrom ...$items
+     * @return static<TFrom>
+     * @phpstan-ignore-next-line | static<T> is not 100% supported
      */
     public static function from(...$items): static
     {
@@ -34,7 +45,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * @param mixed $value
+     * @param T $value
      */
     public function add($value)
     {
@@ -46,11 +57,11 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Retrieve an external iterator
+     * Retrieve an external iterator.
+     *
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
-     * @return Iterator|Traversable An instance of an object implementing <b>Iterator</b> or
+     * @return ArrayIterator<int,T> An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
-     * @since 5.0.0
      */
     public function getIterator(): Iterator|Traversable
     {
@@ -58,8 +69,15 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * @param mixed $item
-     * @return bool
+     * @return array<int,T>
+     */
+    public function getArray(): array
+    {
+        return $this->itemList;
+    }
+
+    /**
+     * @param T $item
      */
     public function checkType($item): bool
     {
@@ -70,16 +88,16 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Whether a offset exists
+     * Whether an offset exists.
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
-     * @param mixed $offset <p>
+     * @param int $offset <p>
      * An offset to check for.
      * </p>
      * @return boolean true on success or false on failure.
-     * </p>
      * <p>
      * The return value will be casted to boolean if non-boolean was returned.
-     * @since 5.0.0
+     * </p>
      */
     public function offsetExists($offset): bool
     {
@@ -87,13 +105,13 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Offset to retrieve
+     * Offset to retrieve.
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset <p>
+     * @param int $offset <p>
      * The offset to retrieve.
      * </p>
-     * @return mixed Can return all value types.
-     * @since 5.0.0
+     * @return null|T
      */
     public function offsetGet($offset): mixed
     {
@@ -101,16 +119,16 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Offset to set
+     * Offset to set.
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetset.php
-     * @param mixed $offset <p>
+     * @param null|int $offset <p>
      * The offset to assign the value to.
      * </p>
-     * @param mixed $value <p>
+     * @param T $value <p>
      * The value to set.
      * </p>
      * @return void
-     * @since 5.0.0
      */
     public function offsetSet($offset, $value): void
     {
@@ -122,35 +140,32 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Offset to unset
+     * Offset to unset.
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
-     * @param mixed $offset <p>
+     * @param int $offset <p>
      * The offset to unset.
      * </p>
      * @return void
-     * @since 5.0.0
      */
     public function offsetUnset($offset): void
     {
         unset($this->itemList[$offset]);
     }
 
-    /**
-     * @return ?string
-     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * Count elements of an object
+     * Count elements of an object.
+     *
      * @link http://php.net/manual/en/countable.count.php
      * @return int The custom count as an integer.
-     * </p>
      * <p>
      * The return value is cast to an integer.
-     * @since 5.1.0
+     * </p>
      */
     public function count(): int
     {
@@ -158,10 +173,12 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Add a raw array of items to the collection
+     * Add a raw array of items to the collection.
      *
-     * @param GenericCollection|array $itemList
-     * @return static
+     * @template TAddItemList as T
+     * @param Traversable<array-key,TAddItemList>|array<array-key,TAddItemList> $itemList
+     * @return static<(T&TAddItemList)>
+     * @phpstan-ignore-next-line | static<T> is not 100% supported
      */
     public function addItemList($itemList): static
     {
@@ -176,6 +193,9 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
         return $this;
     }
 
+    /**
+     * @return class-string<static>
+     */
     public function getClass(): string
     {
         return static::class;
@@ -184,9 +204,9 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     // ==== Assorted iterator goodies ported from the rust standard library ====
 
     /**
-     * Executes 'func' for every item in the collection with the item as parameter
+     * Executes 'func' for every item in the collection with the item as parameter.
      *
-     * @param Closure $func
+     * @param Closure(T):void  $func
      * @return GenericCollection
      */
     public function each(Closure $func): self
@@ -199,11 +219,12 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Applies 'func' to every item via array_map
+     * Applies 'func' to every item via array_map.
+     *
      * Important: Make sure to return the input parameter to avoid re-typing the collection
      *
-     * @param Closure $func
-     * @return GenericCollection
+     * @param Closure(T):mixed $func
+     * @return static<mixed>
      */
     public function map(Closure $func): self
     {
@@ -212,10 +233,10 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Applies 'func' as a filter to every item via array_filter
+     * Applies 'func' as a filter to every item via array_filter.
      *
-     * @param Closure $func
-     * @return GenericCollection
+     * @param Closure(T):bool $func
+     * @return static<T>
      */
     public function filter(Closure $func)
     {
@@ -226,7 +247,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Explicitly clones the collection and returns the new collection leaving the original unmodified.
      *
-     * @return GenericCollection
+     * @return static<T>
      */
     public function clone()
     {
@@ -242,8 +263,8 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Chains a second collection of the same type to the end of the current collection.
      *
-     * @param GenericCollection $other
-     * @return GenericCollection
+     * @param GenericCollection<T> $other
+     * @return GenericCollection<T>
      */
     public function chain(GenericCollection $other): self
     {
@@ -264,14 +285,18 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
 
     /**
      * Zips up another collection with the current one but returns a new collection leaving the original unmodified.
-     * Each item will be a tuple where the first element is an item from the first collection and the second
-     * element is an item from the other collection.
-     * Each tuple is represented as a Zip class.
-     * If the two collections to be zipped are of different lengths the zip will only contain the elements up to
-     * the first collection to return null. Remaining items are ignored.
      *
-     * @param GenericCollection $other
-     * @return ZippedCollection
+     * <ul>
+     * <li> Each item will be a tuple where the first element is an item from the first collection and the second
+     * element is an item from the other collection.</li>
+     * <li> Each tuple is represented as a Zip class.</li>
+     * <li> If the two collections to be zipped are of different lengths the zip will only contain the elements up to
+     * the first collection to return null. Remaining items are ignored.</li>
+     * </ul>
+     *
+     * @template TZip
+     * @param GenericCollection<TZip> $other
+     * @return ZippedCollection<Zip<T,TZip>>
      */
     public function zip(GenericCollection $other): ZippedCollection
     {
@@ -304,15 +329,22 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
 
     /**
      * Creates two new collections based on whether or the predicate returns true or false.
-     * 'func' is called with each item and has to return a boolean value.
      *
-     * @param Closure $func
-     * @return array An array of two collections with index 0 being the 'true' collection and index 1 being the
+     * - 'func' is called with each item and has to return a boolean value.
+     *
+     * @param Closure(T):bool  $func
+     * @return array{0: static<T>, 1: static<T>} An array of two collections with index 0 being the 'true' collection and index 1 being the
      * 'false' collection
      */
     public function partition(Closure $func)
     {
+        /**
+         * @var static<T> $trueCollection
+         */
         $trueCollection = new static($this->getType());
+        /**
+         * @var static<T> $falseCollection
+         */
         $falseCollection = new static($this->getType());
 
         foreach ($this->itemList as $item) {
@@ -328,10 +360,11 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
 
     /**
      * Reduces all elements of the collection to a single value using array_reduce.
-     * Parameter 1 of 'func' is the carry i.e. the return value of the previous iteration
-     * Parameter 2 of 'func' is the current item
      *
-     * @param Closure $func
+     * - Parameter 1 of 'func' is the carry i.e. the return value of the previous iteration
+     * - Parameter 2 of 'func' is the current item
+     *
+     * @param Closure(mixed,T):mixed $func
      * @return mixed
      */
     public function reduce(Closure $func)
@@ -341,12 +374,12 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
 
     /**
      * Tests if every element of the collection matches a predicate.
+     *
      * all() is short-circuiting; in other words, it will stop processing as soon as it finds a false,
      * given that no matter what else happens, the result will also be false.
      * An empty collection returns true.
      *
-     * @param Closure $func
-     * @return bool
+     * @param Closure(T):bool $func
      */
     public function all(Closure $func): bool
     {
@@ -361,11 +394,12 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
 
     /**
      * Tests if any element of the collection matches a predicate.
+     *
      * any() is short-circuiting; in other words, it will stop processing as soon as it finds a true,
      * given that no matter what else happens, the result will also be true.
      * An empty collection returns false.
      *
-     * @param Closure $func
+     * @param Closure(T):bool $func
      * @return bool
      */
     public function any(Closure $func): bool
@@ -380,11 +414,12 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Searches for an element of an collection that satisfies a predicate.
+     * Searches for an element of a collection that satisfies a predicate.
+     *
      * find() is short-circuiting; in other words, it will stop processing as soon as the closure returns true.
      *
-     * @param Closure $func
-     * @return mixed|null
+     * @param Closure(T):bool $func
+     * @return T|null
      */
     public function find(Closure $func)
     {
@@ -398,11 +433,9 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Split an Collection into chunks
+     * Split a Collection into chunks.
      *
-     * @param int $length
-     * @param bool $preserveKeys
-     * @return array|GenericCollection[]
+     * @return list<static<T>>
      */
     public function chunk(int $length, bool $preserveKeys = false): array
     {

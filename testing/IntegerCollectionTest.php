@@ -1,12 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This File is part of JTL-Software
- *
- * User: sleipi
- * Date: 1/7/20
- */
 
 namespace JTL\Generic;
 
@@ -35,6 +29,7 @@ class IntegerCollectionTest extends TestCase
         $col = new IntegerCollection();
 
         $this->expectException(\InvalidArgumentException::class);
+        /* @phpstan-ignore-next-line | fail test | is ok here */
         $col[] = "1";
     }
 }
