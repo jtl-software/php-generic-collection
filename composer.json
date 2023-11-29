@@ -4,11 +4,11 @@
     "type": "jtl-library",
     "license": "MIT",
     "require-dev": {
-        "php": "^8.0",
-        "phpunit/phpunit": "^9.6",
+        "php": "^8.2",
+        "friendsofphp/php-cs-fixer": "^3.40",
+        "infection/infection": "^0.27.8",
         "phpstan/phpstan": "^1.10",
-        "friendsofphp/php-cs-fixer": "^3.25",
-        "infection/infection": "^0.26"
+        "phpunit/phpunit": "^10.4"
     },
     "autoload": {
         "psr-4": {
@@ -21,9 +21,6 @@
         }
     },
     "config": {
-        "platform": {
-            "php": "8.0"
-        },
         "sort-packages": true,
         "allow-plugins": {
             "composer/package-versions-deprecated": true,

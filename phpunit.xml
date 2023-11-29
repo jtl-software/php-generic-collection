@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         executionOrder="default"
-         forceCoversAnnotation="true"
-         beStrictAboutCoversAnnotation="true"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutTodoAnnotatedTests="true"
-         resolveDependencies="true"
-         verbose="true">
-    <coverage>
-        <include>
-            <directory>src</directory>
-        </include>
-        <report>
-            <clover outputFile="build/coverage.xml"/>
-            <html outputDirectory="build/report"/>
-        </report>
-    </coverage>
-
-    <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>testing</directory>
-        </testsuite>
-    </testsuites>
-
-    <logging>
-        <testdoxHtml outputFile="build/testdox.html"/>
-        <testdoxText outputFile="build/testdox.txt"/>
-    </logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true" executionOrder="default" beStrictAboutOutputDuringTests="true" resolveDependencies="true" cacheDirectory=".phpunit.cache" requireCoverageMetadata="true" beStrictAboutCoverageMetadata="true">
+  <coverage>
+    <report>
+      <clover outputFile="build/coverage.xml"/>
+      <html outputDirectory="build/report"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="Project Test Suite">
+      <directory>testing</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <testdoxHtml outputFile="build/testdox.html"/>
+    <testdoxText outputFile="build/testdox.txt"/>
+  </logging>
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
 </phpunit>
