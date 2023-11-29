@@ -1,8 +1,9 @@
 parameters:
-    level: 5
+    level: 7
     paths:
         - src
         - testing
     phpVersion: 80000
+    checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
         - '#Unsafe usage of new static#'

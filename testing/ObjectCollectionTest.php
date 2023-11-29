@@ -64,7 +64,6 @@ class ObjectCollectionTest extends TestCase
         $col = new \JTL\Generic\ObjectCollection(TestItem::class);
 
         $this->expectException(\InvalidArgumentException::class);
-        /* @phpstan-ignore-next-line | fail test | is ok here */
         $col->addItemList([new \DateTimeImmutable()]);
     }
 

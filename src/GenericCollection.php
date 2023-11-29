@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use Iterator;
 use IteratorAggregate;
 use Traversable;
+use UnexpectedValueException;
 
 /**
  * @template T
@@ -47,7 +48,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * @param T $value
      */
-    public function add($value)
+    public function add(mixed $value): void
     {
         if (!$this->checkType($value)) {
             throw new InvalidArgumentException('Invalid type to add');
@@ -176,11 +177,11 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * Add a raw array of items to the collection.
      *
      * @template TAddItemList as T
-     * @param Traversable<array-key,TAddItemList>|array<array-key,TAddItemList> $itemList
+     * @param iterable $itemList
      * @return static<(T&TAddItemList)>
      * @phpstan-ignore-next-line | static<T> is not 100% supported
      */
-    public function addItemList($itemList): static
+    public function addItemList(iterable $itemList): static
     {
         foreach ($itemList as $item) {
             if (!$this->checkType($item)) {
@@ -206,8 +207,8 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Executes 'func' for every item in the collection with the item as parameter.
      *
-     * @param Closure(T):void  $func
-     * @return GenericCollection
+     * @param Closure(T):void $func
+     * @return static<T>
      */
     public function each(Closure $func): self
     {
@@ -249,7 +250,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @return static<T>
      */
-    public function clone()
+    public function clone(): self
     {
         $collection = new static($this->getType());
 
@@ -332,7 +333,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * - 'func' is called with each item and has to return a boolean value.
      *
-     * @param Closure(T):bool  $func
+     * @param Closure(T):bool $func
      * @return array{0: static<T>, 1: static<T>} An array of two collections with index 0 being the 'true' collection and index 1 being the
      * 'false' collection
      */
@@ -435,6 +436,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Split a Collection into chunks.
      *
+     * @param int<1, max> $length
      * @return list<static<T>>
      */
     public function chunk(int $length, bool $preserveKeys = false): array

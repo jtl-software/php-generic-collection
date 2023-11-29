@@ -89,7 +89,7 @@ class ZippedCollection extends GenericCollection
      * Converts a collection of Zips into two collection of their original types.
      * The left element is put into the left collection and the right element into the right collection.
      *
-     * @return array An array of two collections with index 0 being the collection of left elements and index 1
+     * @return array{0: GenericCollection, 1: GenericCollection} An array of two collections with index 0 being the collection of left elements and index 1
      * being the collection of right elements
      *
      * @throws InvalidArgumentException
