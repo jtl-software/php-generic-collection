@@ -16,13 +16,13 @@ use UnexpectedValueException;
 
 /**
  * @template T
- * @implements IteratorAggregate<int,T>
- * @implements ArrayAccess<int,T>
+ * @implements IteratorAggregate<int|string,T>
+ * @implements ArrayAccess<int|string,T>
  */
 class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
 {
     /**
-     * @var array<int,T>
+     * @var array<int|string,T>
      */
     protected array $itemList = [];
     protected ?string $type;
@@ -61,7 +61,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * Retrieve an external iterator.
      *
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
-     * @return ArrayIterator<int,T> An instance of an object implementing <b>Iterator</b> or
+     * @return ArrayIterator<int|string,T> An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
      */
     public function getIterator(): Iterator|Traversable
@@ -70,7 +70,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * @return array<int,T>
+     * @return array<int|string,T>
      */
     public function getArray(): array
     {
@@ -92,7 +92,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * Whether an offset exists.
      *
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
-     * @param int $offset <p>
+     * @param int|string $offset <p>
      * An offset to check for.
      * </p>
      * @return boolean true on success or false on failure.
@@ -109,7 +109,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * Offset to retrieve.
      *
      * @link http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param int $offset <p>
+     * @param int|string $offset <p>
      * The offset to retrieve.
      * </p>
      * @return null|T
@@ -123,7 +123,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * Offset to set.
      *
      * @link http://php.net/manual/en/arrayaccess.offsetset.php
-     * @param null|int $offset <p>
+     * @param null|int|string $offset <p>
      * The offset to assign the value to.
      * </p>
      * @param T $value <p>
@@ -144,7 +144,7 @@ class GenericCollection implements IteratorAggregate, ArrayAccess, Countable
      * Offset to unset.
      *
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
-     * @param int $offset <p>
+     * @param int|string $offset <p>
      * The offset to unset.
      * </p>
      * @return void
